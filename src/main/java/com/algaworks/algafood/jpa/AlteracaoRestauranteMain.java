@@ -9,21 +9,18 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.context.ConfigurableApplicationContext;
 
-import java.util.List;
-
-public class RestauranteCozinhaMain {
+public class AlteracaoRestauranteMain {
     public static void main(String[] args) {
         ConfigurableApplicationContext applicationContext = new SpringApplicationBuilder(AlgafoodApiApplication.class)
                 .web(WebApplicationType.NONE)
                 .run(args);
 
-        RestauranteRepository restaurantes = applicationContext.getBean(
-                RestauranteRepository.class);
+        RestauranteRepository cadastroRestaurante = applicationContext.getBean(RestauranteRepository.class);
 
-        List<Restaurante> todasCozinhas = restaurantes.listar();
+        Restaurante restaurante = new Restaurante();
+        restaurante.setId(1L);
+        restaurante.setNome("Kazue Tue");
 
-        for (Restaurante restaurante: todasCozinhas) {
-            System.out.println(restaurante.getNome());
-        }
+        cadastroRestaurante.salvar(restaurante);
     }
 }

@@ -31,6 +31,7 @@ public class RestauranteRepositoryImpl implements RestauranteRepository {
         return entityManager.merge(restaurante);
     }
 
+    @Transactional
     @Override
     public void remover(Restaurante restaurante) {
        restaurante = buscar(restaurante.getId());
