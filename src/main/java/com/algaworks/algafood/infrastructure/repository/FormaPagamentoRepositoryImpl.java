@@ -2,11 +2,15 @@ package com.algaworks.algafood.infrastructure.repository;
 
 import com.algaworks.algafood.domain.model.FormaPagamento;
 import com.algaworks.algafood.domain.repository.FormaPagamentoRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.Column;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+@Component
 public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
 
     @PersistenceContext
@@ -22,11 +26,14 @@ public class FormaPagamentoRepositoryImpl implements FormaPagamentoRepository {
         return manager.find(FormaPagamento.class, id);
     }
 
+    @Transactional
     @Override
     public FormaPagamento salvar(FormaPagamento formaPagamento) {
         return manager.merge(formaPagamento);
     }
 
+
+    @Transactional
     @Override
     public void remover(FormaPagamento formaPagamento) {
         FormaPagamento formaPagamentoAtual = buscar(formaPagamento.getId());
