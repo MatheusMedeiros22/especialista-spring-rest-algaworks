@@ -24,3 +24,5 @@ insert into forma_pagamento (id, descricao) values (3, 'Cartão de crédito');
 insert into forma_pagamento (id, descricao) values (4, 'Cartão de débito');
 insert into forma_pagamento (id, descricao) values (5, 'Dinheiro');
 
+insert into permissao (id, nome, descricao) values (1, 'CONSULTAR_COZINHAS', 'Permite consultar cozinhas');
+insert into permissao (id, nome, descricao) values (2, 'EDITAR_COZINHAS', 'Permite editar cozinhas');
