@@ -1,7 +1,10 @@
 package com.algaworks.algafood.api.controller;
 
+import com.algaworks.algafood.domain.exception.EntidadeEmUsoException;
+import com.algaworks.algafood.domain.exception.EntidadeNaoEncontradaException;
 import com.algaworks.algafood.domain.model.Cozinha;
 import com.algaworks.algafood.domain.repository.CozinhaRepository;
+import com.algaworks.algafood.domain.service.CadastroCozinhaService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,6 +20,9 @@ public class CozinhaController {
 
     @Autowired
     private CozinhaRepository cozinhaRepository;
+
+    @Autowired
+    private CadastroCozinhaService cadastroCozinhaService;
 
     //GET /cozinhas HTTP/1.1
 
@@ -40,7 +46,7 @@ public class CozinhaController {
 
     @PostMapping
     public ResponseEntity<Cozinha> salvar(@RequestBody Cozinha cozinha){
-        Cozinha cozinhaSalva = cozinhaRepository.salvar(cozinha);
+        Cozinha cozinhaSalva = cadastroCozinhaService.salvar(cozinha);
         return ResponseEntity.status(HttpStatus.CREATED).body(cozinhaSalva);
     }
 
@@ -62,17 +68,14 @@ public class CozinhaController {
     @DeleteMapping("/{cozinhaId}")
     public ResponseEntity<Void> remover(@PathVariable Long cozinhaId){
        try {
-           Cozinha cozinhaAtual = cozinhaRepository.buscar(cozinhaId);
+           cadastroCozinhaService.excluir(cozinhaId);
 
+           return ResponseEntity.noContent().build();
 
-           if (cozinhaAtual != null) {
-               cozinhaRepository.remover(cozinhaAtual);
-               return ResponseEntity.noContent().build();
-           }
-
-           return ResponseEntity.notFound().build();
-       }catch (DataIntegrityViolationException e){
+       }catch (EntidadeEmUsoException e){
            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+       }catch (EntidadeNaoEncontradaException e){
+           return ResponseEntity.notFound().build();
        }
     }
 }
