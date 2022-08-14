@@ -62,21 +62,22 @@ public class RestauranteController {
                return ResponseEntity.ok(restauranteAtual);
            }
            return ResponseEntity.notFound().build();
-       }catch (EntidadeNaoEncontradaException e){
+       }catch (EntidadeNaoEncontradaException e){ //Esse erro aqui eu acho q e delirio meu!
            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
 
     @DeleteMapping("/{restauranteId}")
-    public ResponseEntity<Void> remover(@PathVariable Long restauranteId){
+    public ResponseEntity<?> remover(@PathVariable Long restauranteId){
         try {
             cadastroRestauranteService.remover(restauranteId);
 
             return ResponseEntity.noContent().build();
 
-
         }catch (EntidadeNaoEncontradaException e){
             return ResponseEntity.notFound().build();
+        }catch (EntidadeEmUsoException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
     }
 }
