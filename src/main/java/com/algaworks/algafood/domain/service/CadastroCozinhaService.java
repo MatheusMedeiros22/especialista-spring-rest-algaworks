@@ -33,9 +33,4 @@ public class CadastroCozinhaService {
             );
         }
     }
-    public Cozinha atualizar(Long id, Cozinha cozinha){
-        Cozinha cozinhaAtual = cozinhaRepository.buscar(id);
-        BeanUtils.copyProperties(cozinha, cozinhaAtual);
-        return cozinhaAtual;
-    }
 }
