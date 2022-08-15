@@ -62,7 +62,7 @@ public class RestauranteController {
                return ResponseEntity.ok(restauranteAtual);
            }
            return ResponseEntity.notFound().build();
-       }catch (EntidadeNaoEncontradaException e){ //Esse erro aqui eu acho q e delirio meu!
+       }catch (EntidadeNaoEncontradaException e){
            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
