@@ -28,12 +28,12 @@ public class CadastroCidadeService {
             );
         }
 
-        return cidadeRepository.salvar(cidade);
+        return cidadeRepository.save(cidade);
     }
 
     public void remover(Long id){
         try {
-            cidadeRepository.remover(id);
+            cidadeRepository.deleteById(id);
         }catch (EmptyResultDataAccessException e){
             throw new EntidadeNaoEncontradaException(
                     String.format("Cidade com id %d nao foi encontrada", id)
