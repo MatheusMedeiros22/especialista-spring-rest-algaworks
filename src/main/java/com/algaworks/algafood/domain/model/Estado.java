@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
-
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
@@ -17,5 +16,4 @@ public class Estado {
 
     @Column(nullable = false)
     private String nome;
-
 }
