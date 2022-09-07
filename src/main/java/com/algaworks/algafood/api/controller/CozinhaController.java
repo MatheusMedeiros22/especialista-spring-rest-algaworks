@@ -17,14 +17,10 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/cozinhas")
 public class CozinhaController {
-
     @Autowired
     private CozinhaRepository cozinhaRepository;
-
     @Autowired
     private CadastroCozinhaService cadastroCozinhaService;
-
-    //GET /cozinhas HTTP/1.1
 
     @GetMapping
     public ResponseEntity<List<Cozinha>> listar(){
